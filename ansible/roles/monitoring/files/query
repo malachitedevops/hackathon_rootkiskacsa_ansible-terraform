@@ -1,0 +1,24 @@
+{
+	"query": {
+		"bool": {
+			"must": [
+				{
+					"range": {
+						"http.response.status_code": {
+							"gte": 400,
+							"lte": 599
+						}
+					}
+				},
+				{
+					"range": {
+						"@timestamp": {
+							"gte": "now-10m"
+						}
+					}
+				}
+			]
+		}
+	}
+}
+

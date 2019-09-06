@@ -1,0 +1,9 @@
+.env
+group_vars
+elastic.retry
+site.retry
+hosts
+terraform.tfvars
+variables.tf
+terraform.tfstate*
+.terraform

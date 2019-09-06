@@ -1,0 +1,33 @@
+heartbeat.config.monitors:
+  path: ${path.config}/monitors.d/*.yml
+  reload.enabled: false
+  reload.period: 5s
+
+heartbeat.monitors:
+- type: http
+  schedule: '@every 60s'
+  urls:
+    - {{ backend_ip }}:3000/healthcheck
+
+  check.request:
+    method: GET
+    headers:
+        'Content-Type': 'application/json' 
+  check.response:
+    status: 200
+
+setup.template.settings:
+  index.number_of_shards: 1
+  index.codec: best_compression
+  #_source.enabled: false
+
+processors:
+  - add_observer_metadata: ~
+
+output.elasticsearch:
+  hosts: ["localhost:9200/"]
+  username: "elastic"
+  password: "changeme"
+setup.kibana:
+  host: "localhost:5601"
+

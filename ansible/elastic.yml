@@ -1,0 +1,8 @@
+---
+- name: Elastic Stack
+  hosts: elk_server
+  user: ubuntu
+  become: true
+  become_method: sudo
+  roles:
+    - monitoring

@@ -1,0 +1,8 @@
+---
+- name: Erste Credit Card Registry App
+  hosts: webservers
+  user: ubuntu
+  become: true
+  become_method: sudo
+  roles:
+    - common

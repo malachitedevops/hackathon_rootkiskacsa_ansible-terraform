@@ -1,0 +1,38 @@
+---
+- name: Upgrading system
+  apt:
+    update_cache: yes
+    upgrade: yes
+    autoclean: yes
+    autoremove: yes
+    force_apt_get: yes
+
+- name: Installing Docker 
+  script: /home/mark/greenfox/hackathon/scripts/getdocker.sh
+
+- name: Installing Docker-Compose
+  apt:
+    name: docker-compose
+    state: present
+    force_apt_get: yes
+
+- name: Creating user
+  user:
+    name: {{ USERNAME }}
+    password: {{ PASSWORD }}
+    shell: /bin/bash
+    groups: sudo,docker
+    append: yes
+
+- name: Copying configuration for SSHD
+  template: src={{ PATH }} dest={{ PATH }}
+  notify: restart sshd
+
+- name: Copying scripts
+  become: yes
+  become_user: {{ USERNAME }}
+  copy:
+    src: {{ PATH }}
+    dest: {{ PATH }}
+    owner: {{ USERNAME }}
+    group: {{ USERNAME }}

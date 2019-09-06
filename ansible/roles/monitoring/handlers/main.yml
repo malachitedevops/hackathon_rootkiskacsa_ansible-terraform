@@ -1,0 +1,10 @@
+---
+- name: restart sshd
+  become: yes
+  become_method: sudo
+  service: name=sshd state=reloaded
+
+- name: restart heartbeat
+  become: yes
+  become_method: sudo
+  service: name=heartbeat-elastic state=reloaded
